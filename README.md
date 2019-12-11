@@ -14,7 +14,8 @@ The demo can be used as an example or a seed project. Local execution requires t
 
 - The application is available at *http://localhost:8080* in your browser, webpack-dev-server provides hot reload functionality.
 
-### Description
+
+## Description
 
 Best practice of data visualization within Data Analysis in different fields and industries is combining multiple series in one chart to examine and get richer insight about collected data. Moreover, it allows researchers to make conclusions about the researching phenomena out of each data set, to search patterns and relationships both within a collection and across collections
 
@@ -91,19 +92,20 @@ axis
     .setNibOverlayStyle( axisFillStyleHighlight )
 ```
 
-### API links
 
-* XY cartesian chart: [ChartXY][]
-* Axis: [Axis][]
-* Spline series: [SplineSeries][]
-* Color palettes: [ColorPalettes][]
-* RGBA color factory: [ColorRGBA][]
-* Solid FillStyle: [SolidFill][]
-* Solid LineStyle: [SolidLine][]
-* Auto cursor XY: [AutoCursorXY][]
+## API Links
+
+* XY cartesian chart: [ChartXY]
+* Axis: [Axis]
+* Spline series: [SplineSeries]
+* Color palettes: [ColorPalettes]
+* RGBA color factory: [ColorRGBA]
+* Solid FillStyle: [SolidFill]
+* Solid LineStyle: [SolidLine]
+* Auto cursor XY: [AutoCursorXY]
 
 
-### Support
+## Support
 
 If you notice an error in the example code, please open an issue on [GitHub][0] repository of the entire example.
 
@@ -115,19 +117,21 @@ If you think you found a bug in the LightningChart JavaScript library, please co
 
 Direct developer email support can be purchased through a [Support Plan][4] or by contacting sales@arction.com.
 
-© Arction Ltd 2009-2019. All rights reserved.
-
 [0]: https://github.com/Arction/
 [1]: https://www.arction.com/lightningchart-js-api-documentation/
 [2]: https://www.arction.com
 [3]: https://stackoverflow.com/questions/tagged/lightningchart
 [4]: https://www.arction.com/support-services/
 
-[AutoCursorXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/interfaces/autocursorxy.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/classes/axis.html
-[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/classes/chartxy.html
-[ColorPalettes]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/globals.html#colorpalettes
-[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/globals.html#colorrgba
-[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/classes/solidfill.html
-[SolidLine]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/classes/solidline.html
-[SplineSeries]: https://www.arction.com/lightningchart-js-api-documentation/v1.1.0/classes/splineseries.html
+© Arction Ltd 2009-2019. All rights reserved.
+
+
+[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/classes/chartxy.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/classes/axis.html
+[SplineSeries]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/classes/splineseries.html
+[ColorPalettes]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/globals.html#colorpalettes
+[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/globals.html#colorrgba
+[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/classes/solidfill.html
+[SolidLine]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/classes/solidline.html
+[AutoCursorXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.2.0/interfaces/autocursorxy.html
+

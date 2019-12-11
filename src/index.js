@@ -1,4 +1,4 @@
-/**
+/*
  * LightningChartJS example that showcases sharing an Axis between two series.
  *  Also, styling of chart zooming rectangle & axes.
  */
