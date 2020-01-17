@@ -20,7 +20,7 @@ const {
 
 // ----- Cache used styles -----
 const palette = ColorPalettes.arction(10)
-const colors = [2, 4, 0].map(palette)
+const colors = [6, 9, 0].map(palette)
 const axisYColors = [colors[0], colors[1]]
 const axisYStyles = axisYColors.map((color) => new SolidFill({ color }))
 const axisYStrokeStyles = axisYStyles.map((fillStyle) => new SolidLine({ fillStyle, thickness: 2 }))
@@ -81,6 +81,7 @@ const splineSeries1 = chart.addSplineSeries({
 })
     .setName('TechComp')
     .setStrokeStyle(seriesStrokeStyles[0])
+    .setPointFillStyle(() => seriesStrokeStyles[0].getFillStyle())
 
 const splineSeries2 = chart.addSplineSeries({
     xAxis: axisX,
@@ -88,6 +89,7 @@ const splineSeries2 = chart.addSplineSeries({
 })
     .setName('UniTek')
     .setStrokeStyle(seriesStrokeStyles[1])
+    .setPointFillStyle(() => seriesStrokeStyles[1].getFillStyle())
 
 const techcomp = [
     { x: 0, y: 352 },
