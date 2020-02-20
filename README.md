@@ -27,7 +27,7 @@ This example shows how to:
 - assign series to explicit axes;
 - styling of ChartXY zooming rectangle.
 
-#### Request default axes.
+## Request default axes.
 
 Cartesian XY charts contains default X and Y axes by default. To request the default axes of a chart, you can simply use:
 
@@ -41,7 +41,7 @@ const axisYDefault = chart.getDefaultAxisY()
 
 During the creation of any XY series, you can attach series to default axes by not specifying the xAxis or yAxis options.
 
-#### Create new axis and attach series.
+## Create new axis and attach series.
 
 ```javascript
 // Create additional X-axis
@@ -68,7 +68,7 @@ const allSeries = [
 ]
 ```
 
-#### Axis styling.
+## Axis styling.
 
 Both X and Y axes share the same flexible and fully customizable API, meaning the same setters and getters. The full list of methods of the class ***Axis*** you can find in LightningChart JS API reference.
 
