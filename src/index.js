@@ -15,7 +15,8 @@ const {
     emptyLine,
     AxisTickStrategies,
     LegendBoxBuilders,
-    UIOrigins
+    UIOrigins,
+    Themes
 } = lcjs
 
 // ----- Cache used styles -----
@@ -27,16 +28,14 @@ const axisYStrokeStyles = axisYStyles.map((fillStyle) => new SolidLine({ fillSty
 const axisYStylesHighlight = axisYStyles.map((fillStyle) => fillStyle.setA(100))
 const axisXStyleHighlight = new SolidFill({ color: colors[2].setA(100) })
 const seriesStrokeStyles = axisYStrokeStyles
-const axisLabelStyle = new SolidFill({ color: ColorRGBA(255, 255, 255) })
 const fittingRectangleStrokeStyle = new SolidLine({ fillStyle: new SolidFill({ color: ColorRGBA(255, 255, 255, 100) }), thickness: 2 })
 const zoomingRectangleFillStyle = new SolidFill({ color: colors[2].setA(100) })
 
 // Decide on an origin for DateTime axis.
 const dateOrigin = new Date(2018, 1, 5)
-
 // Create a XY Chart.
 const chart = lightningChart().ChartXY({
-    defaultAxisXTickStrategy: AxisTickStrategies.DateTime(dateOrigin)
+    // theme: Themes.dark
 })
     .setPadding({
         right: 50
@@ -50,17 +49,33 @@ const chart = lightningChart().ChartXY({
 const axisX = chart.getDefaultAxisX()
     .setOverlayStyle(axisXStyleHighlight)
     .setNibOverlayStyle(axisXStyleHighlight)
-    .setTickStyle(visibleTick => visibleTick
-        .setLabelFillStyle(axisLabelStyle)
+    // Set the X Axis to use DateTime TickStrategy
+    .setTickStrategy(
+        AxisTickStrategies.DateTime,
+        (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin)
     )
 
+// Style the default Y Axis.
 const axisY1 = chart.getDefaultAxisY()
     .setStrokeStyle(axisYStrokeStyles[0])
     .setOverlayStyle(axisYStylesHighlight[0])
     .setNibOverlayStyle(axisYStylesHighlight[0])
-    .setTickStyle(visibleTick => visibleTick
-        .setLabelFillStyle(axisLabelStyle)
-        .setGridStrokeStyle(emptyLine)
+    // Modify the TickStrategy to remove gridLines from this Y Axis.
+    .setTickStrategy(
+        // Use Numeric TickStrategy as base.
+        AxisTickStrategies.Numeric,
+        // Use mutator to modify the TickStrategy.
+        tickStrategy => tickStrategy
+            // Modify Major Tick Style by using a mutator.
+            .setMajorTickStyle(
+                tickStyle => tickStyle
+                    .setGridStrokeStyle(emptyLine)
+            )
+            // Modify Minor Tick Style by using a mutator.
+            .setMinorTickStyle(
+                tickStyle => tickStyle
+                    .setGridStrokeStyle(emptyLine)
+            )
     )
 
 // Create additional styled Y axis on left side.
@@ -69,9 +84,22 @@ const axisY2 = chart.addAxisY(false)
     .setStrokeStyle(axisYStrokeStyles[1])
     .setOverlayStyle(axisYStylesHighlight[1])
     .setNibOverlayStyle(axisYStylesHighlight[1])
-    .setTickStyle(visibleTick => visibleTick
-        .setLabelFillStyle(axisLabelStyle)
-        .setGridStrokeStyle(emptyLine)
+    // Modify the TickStrategy to remove gridLines from this Y Axis.
+    .setTickStrategy(
+        // Use Numeric TickStrategy as base.
+        AxisTickStrategies.Numeric,
+        // Use mutator to modify the TickStrategy.
+        tickStrategy => tickStrategy
+            // Modify Major Tick Style by using a mutator.
+            .setMajorTickStyle(
+                tickStyle => tickStyle
+                    .setGridStrokeStyle(emptyLine)
+            )
+            // Modify Minor Tick Style by using a mutator.
+            .setMinorTickStyle(
+                tickStyle => tickStyle
+                    .setGridStrokeStyle(emptyLine)
+            )
     )
 
 // Create series with explicit axes.

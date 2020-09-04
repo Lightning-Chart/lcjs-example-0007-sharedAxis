@@ -78,15 +78,25 @@ axis
     .setTitle( 'My axis' )
     // Configure axis line style.
     .setStrokeStyle( axisStrokeStyle )
-    // Configure axis tick style.
-    .setTickStyle( visibleTicks => visibleTicks
-        // Fill Style.
-        .setLabelFillStyle( axisLabelFillStyle )
-        // Font.
-        .setLabelFont( font => font
-            // Configure the font.
-            ...
-        )
+    // Configure axis tick style by modifying the Axis TickStrategy.
+    .setTickStrategy(
+        // Use Numeric TickStrategy as Base.
+        AxisTickStrategies.Numeric,
+        // Use a mutator to modify the TickStrategy.
+        ( tickStrategy ) => tickStrategy
+            // Modify the Major Ticks for the TickStrategy.
+            // Minor and Extreme TickStyles must be set separately.
+            .setMajorTickStyle( visibleTicks => visibleTicks
+                // Label fill Style.
+                .setLabelFillStyle( axisLabelFillStyle )
+                // Font.
+                .setLabelFont( font => font
+                    // Configure the font.
+                    ...
+                )
+                // Grid stroke style
+                .setGridStrokeStyle( gridStrokeStyle )
+            )
     )
     // Configure axis overlay style (interactive axis area).
     .setOverlayStyle( axisFillStyleHighlight )
@@ -97,14 +107,14 @@ axis
 
 ## API Links
 
-* XY cartesian chart: [ChartXY]
-* Axis: [Axis]
-* Spline series: [SplineSeries]
-* Color palettes: [ColorPalettes]
-* RGBA color factory: [ColorRGBA]
-* Solid FillStyle: [SolidFill]
-* Solid LineStyle: [SolidLine]
-* Auto cursor XY: [AutoCursorXY]
+* [XY cartesian chart]
+* [Axis]
+* [Spline series]
+* [Color palettes]
+* [RGBA color factory]
+* [Solid FillStyle]
+* [Solid LineStyle]
+* [Auto cursor XY]
 
 
 ## Support
@@ -128,12 +138,12 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © Arction Ltd 2009-2020. All rights reserved.
 
 
-[ChartXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/chartxy.html
-[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/axis.html
-[SplineSeries]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/splineseries.html
-[ColorPalettes]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#colorpalettes
-[ColorRGBA]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/globals.html#colorrgba
-[SolidFill]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/solidfill.html
-[SolidLine]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/classes/solidline.html
-[AutoCursorXY]: https://www.arction.com/lightningchart-js-api-documentation/v1.3.0/interfaces/autocursorxy.html
+[XY cartesian chart]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/chartxy.html
+[Axis]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/axis.html
+[Spline series]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/splineseries.html
+[Color palettes]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#colorpalettes
+[RGBA color factory]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/globals.html#colorrgba
+[Solid FillStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/solidfill.html
+[Solid LineStyle]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/classes/solidline.html
+[Auto cursor XY]: https://www.arction.com/lightningchart-js-api-documentation/v2.0.0/interfaces/autocursorxy.html
 
