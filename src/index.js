@@ -180,9 +180,6 @@ chart.setAutoCursor(cursor => {
         .setTickMarkerYAutoTextStyle(true)
 })
 const legend = chart.addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
-    .setPosition({ x: 35, y: 90 })
-    .setOrigin(UIOrigins.RightTop)
-    .setMargin(10)
 // Add Chart to LegendBox
 legend.add(chart)
 
@@ -192,5 +189,5 @@ const parser = (builder, series, Xvalue, Yvalue) => {
         .addRow(axisX.formatValue(Xvalue))
         .addRow('Units: ' + Math.floor(Yvalue))
 }
-splineSeries1.setResultTableFormatter(parser)
-splineSeries2.setResultTableFormatter(parser)
+splineSeries1.setCursorResultTableFormatter(parser)
+splineSeries2.setCursorResultTableFormatter(parser)
