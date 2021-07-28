@@ -35,7 +35,7 @@ const zoomingRectangleFillStyle = new SolidFill({ color: colors[2].setA(100) })
 const dateOrigin = new Date(2018, 1, 5)
 // Create a XY Chart.
 const chart = lightningChart().ChartXY({
-    // theme: Themes.dark
+    // theme: Themes.darkGold
 })
     .setPadding({
         right: 50
@@ -180,6 +180,12 @@ chart.setAutoCursor(cursor => {
         .setTickMarkerYAutoTextStyle(true)
 })
 const legend = chart.addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
+    // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
+    .setAutoDispose({
+        type: 'max-width',
+        maxWidth: 0.80,
+})
+
 // Add Chart to LegendBox
 legend.add(chart)
 
