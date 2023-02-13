@@ -16,7 +16,7 @@ const {
     AxisTickStrategies,
     LegendBoxBuilders,
     UIOrigins,
-    Themes
+    Themes,
 } = lcjs
 
 // ----- Cache used styles -----
@@ -34,11 +34,12 @@ const zoomingRectangleFillStyle = new SolidFill({ color: colors[2].setA(100) })
 // Decide on an origin for DateTime axis.
 const dateOrigin = new Date(2018, 1, 5)
 // Create a XY Chart.
-const chart = lightningChart().ChartXY({
-    // theme: Themes.darkGold
-})
+const chart = lightningChart()
+    .ChartXY({
+        // theme: Themes.darkGold
+    })
     .setPadding({
-        right: 50
+        right: 50,
     })
     .setTitle('Unit production comparison')
     // Style chart zooming rectangle.
@@ -46,17 +47,16 @@ const chart = lightningChart().ChartXY({
     .setZoomingRectangleFillStyle(zoomingRectangleFillStyle)
 
 // Cache reference to default axes and style them.
-const axisX = chart.getDefaultAxisX()
+const axisX = chart
+    .getDefaultAxisX()
     .setOverlayStyle(axisXStyleHighlight)
     .setNibOverlayStyle(axisXStyleHighlight)
     // Set the X Axis to use DateTime TickStrategy
-    .setTickStrategy(
-        AxisTickStrategies.DateTime,
-        (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin)
-    )
+    .setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
 
 // Style the default Y Axis.
-const axisY1 = chart.getDefaultAxisY()
+const axisY1 = chart
+    .getDefaultAxisY()
     .setStrokeStyle(axisYStrokeStyles[0])
     .setOverlayStyle(axisYStylesHighlight[0])
     .setNibOverlayStyle(axisYStylesHighlight[0])
@@ -65,21 +65,17 @@ const axisY1 = chart.getDefaultAxisY()
         // Use Numeric TickStrategy as base.
         AxisTickStrategies.Numeric,
         // Use mutator to modify the TickStrategy.
-        tickStrategy => tickStrategy
-            // Modify Major Tick Style by using a mutator.
-            .setMajorTickStyle(
-                tickStyle => tickStyle
-                    .setGridStrokeStyle(emptyLine)
-            )
-            // Modify Minor Tick Style by using a mutator.
-            .setMinorTickStyle(
-                tickStyle => tickStyle
-                    .setGridStrokeStyle(emptyLine)
-            )
+        (tickStrategy) =>
+            tickStrategy
+                // Modify Major Tick Style by using a mutator.
+                .setMajorTickStyle((tickStyle) => tickStyle.setGridStrokeStyle(emptyLine))
+                // Modify Minor Tick Style by using a mutator.
+                .setMinorTickStyle((tickStyle) => tickStyle.setGridStrokeStyle(emptyLine)),
     )
 
 // Create additional styled Y axis on left side.
-const axisY2 = chart.addAxisY(false)
+const axisY2 = chart
+    .addAxisY(false)
     .setTitle('No of units produced')
     .setStrokeStyle(axisYStrokeStyles[1])
     .setOverlayStyle(axisYStylesHighlight[1])
@@ -89,32 +85,29 @@ const axisY2 = chart.addAxisY(false)
         // Use Numeric TickStrategy as base.
         AxisTickStrategies.Numeric,
         // Use mutator to modify the TickStrategy.
-        tickStrategy => tickStrategy
-            // Modify Major Tick Style by using a mutator.
-            .setMajorTickStyle(
-                tickStyle => tickStyle
-                    .setGridStrokeStyle(emptyLine)
-            )
-            // Modify Minor Tick Style by using a mutator.
-            .setMinorTickStyle(
-                tickStyle => tickStyle
-                    .setGridStrokeStyle(emptyLine)
-            )
+        (tickStrategy) =>
+            tickStrategy
+                // Modify Major Tick Style by using a mutator.
+                .setMajorTickStyle((tickStyle) => tickStyle.setGridStrokeStyle(emptyLine))
+                // Modify Minor Tick Style by using a mutator.
+                .setMinorTickStyle((tickStyle) => tickStyle.setGridStrokeStyle(emptyLine)),
     )
 
 // Create series with explicit axes.
-const splineSeries1 = chart.addSplineSeries({
-    xAxis: axisX,
-    yAxis: axisY1
-})
+const splineSeries1 = chart
+    .addSplineSeries({
+        xAxis: axisX,
+        yAxis: axisY1,
+    })
     .setName('TechComp')
     .setStrokeStyle(seriesStrokeStyles[0])
     .setPointFillStyle(() => seriesStrokeStyles[0].getFillStyle())
 
-const splineSeries2 = chart.addSplineSeries({
-    xAxis: axisX,
-    yAxis: axisY2
-})
+const splineSeries2 = chart
+    .addSplineSeries({
+        xAxis: axisX,
+        yAxis: axisY2,
+    })
     .setName('UniTek')
     .setStrokeStyle(seriesStrokeStyles[1])
     .setPointFillStyle(() => seriesStrokeStyles[1].getFillStyle())
@@ -162,29 +155,27 @@ const unitek = [
     { x: 16, y: 1000 },
     { x: 17, y: 1200 },
     { x: 18, y: 1200 },
-    { x: 19, y: 1300 }
+    { x: 19, y: 1300 },
 ]
 const dataFrequency = 1000 * 60 * 60 * 24
 splineSeries1.add(techcomp.map((point) => ({ x: point.x * dataFrequency * 7, y: point.y })))
 splineSeries2.add(unitek.map((point) => ({ x: point.x * dataFrequency * 7, y: point.y })))
 
 // Setup Y views manually (for some extra margins).
-axisY1.setInterval(splineSeries1.getYMin() - 10, splineSeries1.getYMax() + 10, true, true)
-axisY2.setInterval(splineSeries2.getYMin() - 10, splineSeries2.getYMax() + 10, true, true)
+axisY1.setInterval({ start: splineSeries1.getYMin() - 10, end: splineSeries1.getYMax() + 10, animate: true })
+axisY2.setInterval({ start: splineSeries2.getYMin() - 10, end: splineSeries2.getYMax() + 10, animate: true })
 
 // Enable AutoCursor auto-fill.
-chart.setAutoCursor(cursor => {
-    (cursor)
-        .setResultTableAutoTextStyle(true)
-        .setTickMarkerXAutoTextStyle(true)
-        .setTickMarkerYAutoTextStyle(true)
+chart.setAutoCursor((cursor) => {
+    cursor.setResultTableAutoTextStyle(true).setTickMarkerXAutoTextStyle(true).setTickMarkerYAutoTextStyle(true)
 })
-const legend = chart.addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
+const legend = chart
+    .addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
     // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
     .setAutoDispose({
         type: 'max-width',
-        maxWidth: 0.80,
-})
+        maxWidth: 0.8,
+    })
 
 // Add Chart to LegendBox
 legend.add(chart)
