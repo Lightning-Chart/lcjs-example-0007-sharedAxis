@@ -31,8 +31,6 @@ const seriesStrokeStyles = axisYStrokeStyles
 const fittingRectangleStrokeStyle = new SolidLine({ fillStyle: new SolidFill({ color: ColorRGBA(255, 255, 255, 100) }), thickness: 2 })
 const zoomingRectangleFillStyle = new SolidFill({ color: colors[2].setA(100) })
 
-// Decide on an origin for DateTime axis.
-const dateOrigin = new Date(2018, 1, 5)
 // Create a XY Chart.
 const chart = lightningChart()
     .ChartXY({
@@ -51,8 +49,12 @@ const axisX = chart
     .getDefaultAxisX()
     .setOverlayStyle(axisXStyleHighlight)
     .setNibOverlayStyle(axisXStyleHighlight)
-    // Set the X Axis to use DateTime TickStrategy
-    .setTickStrategy(AxisTickStrategies.DateTime, (tickStrategy) => tickStrategy.setDateOrigin(dateOrigin))
+    // Set the X Axis to use DateTime TickStrategy and set the interval
+    .setTickStrategy(AxisTickStrategies.DateTime)
+    .setInterval({
+        start: new Date(2018, 1, 5).getTime(),
+        end: new Date(2018, 1, 24).getTime()
+    })
 
 // Style the default Y Axis.
 const axisY1 = chart
@@ -113,53 +115,54 @@ const splineSeries2 = chart
     .setPointFillStyle(() => seriesStrokeStyles[1].getFillStyle())
 
 const techcomp = [
-    { x: 0, y: 352 },
-    { x: 1, y: 352 },
-    { x: 2, y: 352 },
-    { x: 3, y: 358 },
-    { x: 4, y: 400 },
-    { x: 5, y: 400 },
-    { x: 6, y: 400 },
-    { x: 7, y: 400 },
-    { x: 8, y: 426 },
-    { x: 9, y: 390 },
-    { x: 10, y: 390 },
-    { x: 11, y: 390 },
-    { x: 12, y: 390 },
-    { x: 13, y: 360 },
-    { x: 14, y: 360 },
-    { x: 15, y: 360 },
-    { x: 16, y: 500 },
-    { x: 17, y: 500 },
-    { x: 18, y: 500 },
-    { x: 19, y: 600 },
+    { x: new Date(2018, 1, 5).getTime(), y: 352 },
+    { x: new Date(2018, 1, 6).getTime(), y: 352 },
+    { x: new Date(2018, 1, 7).getTime(), y: 352 },
+    { x: new Date(2018, 1, 8).getTime(), y: 358 },
+    { x: new Date(2018, 1, 9).getTime(), y: 400 },
+    { x: new Date(2018, 1, 10).getTime(), y: 400 },
+    { x: new Date(2018, 1, 11).getTime(), y: 400 },
+    { x: new Date(2018, 1, 12).getTime(), y: 400 },
+    { x: new Date(2018, 1, 13).getTime(), y: 426 },
+    { x: new Date(2018, 1, 14).getTime(), y: 390 },
+    { x: new Date(2018, 1, 15).getTime(), y: 390 },
+    { x: new Date(2018, 1, 16).getTime(), y: 390 },
+    { x: new Date(2018, 1, 17).getTime(), y: 390 },
+    { x: new Date(2018, 1, 18).getTime(), y: 360 },
+    { x: new Date(2018, 1, 19).getTime(), y: 360 },
+    { x: new Date(2018, 1, 20).getTime(), y: 360 },
+    { x: new Date(2018, 1, 21).getTime(), y: 500 },
+    { x: new Date(2018, 1, 22).getTime(), y: 500 },
+    { x: new Date(2018, 1, 23).getTime(), y: 500 },
+    { x: new Date(2018, 1, 24).getTime(), y: 600 },
 ]
 
 const unitek = [
-    { x: 0, y: 235 },
-    { x: 1, y: 235 },
-    { x: 2, y: 335 },
-    { x: 3, y: 335 },
-    { x: 4, y: 490 },
-    { x: 5, y: 490 },
-    { x: 6, y: 490 },
-    { x: 7, y: 492 },
-    { x: 8, y: 550 },
-    { x: 9, y: 550 },
-    { x: 10, y: 600 },
-    { x: 11, y: 600 },
-    { x: 12, y: 900 },
-    { x: 13, y: 900 },
-    { x: 14, y: 900 },
-    { x: 15, y: 850 },
-    { x: 16, y: 1000 },
-    { x: 17, y: 1200 },
-    { x: 18, y: 1200 },
-    { x: 19, y: 1300 },
+    { x: new Date(2018, 1, 5).getTime(), y: 235 },
+    { x: new Date(2018, 1, 6).getTime(), y: 235 },
+    { x: new Date(2018, 1, 7).getTime(), y: 335 },
+    { x: new Date(2018, 1, 8).getTime(), y: 335 },
+    { x: new Date(2018, 1, 9).getTime(), y: 490 },
+    { x: new Date(2018, 1, 10).getTime(), y: 490 },
+    { x: new Date(2018, 1, 11).getTime(), y: 490 },
+    { x: new Date(2018, 1, 12).getTime(), y: 492 },
+    { x: new Date(2018, 1, 13).getTime(), y: 550 },
+    { x: new Date(2018, 1, 14).getTime(), y: 550 },
+    { x: new Date(2018, 1, 15).getTime(), y: 600 },
+    { x: new Date(2018, 1, 16).getTime(), y: 600 },
+    { x: new Date(2018, 1, 17).getTime(), y: 900 },
+    { x: new Date(2018, 1, 18).getTime(), y: 900 },
+    { x: new Date(2018, 1, 19).getTime(), y: 900 },
+    { x: new Date(2018, 1, 20).getTime(), y: 850 },
+    { x: new Date(2018, 1, 21).getTime(), y: 1000 },
+    { x: new Date(2018, 1, 22).getTime(), y: 1200 },
+    { x: new Date(2018, 1, 23).getTime(), y: 1200 },
+    { x: new Date(2018, 1, 24).getTime(), y: 1300 },
 ]
-const dataFrequency = 1000 * 60 * 60 * 24
-splineSeries1.add(techcomp.map((point) => ({ x: point.x * dataFrequency * 7, y: point.y })))
-splineSeries2.add(unitek.map((point) => ({ x: point.x * dataFrequency * 7, y: point.y })))
+
+// Add data to series
+splineSeries1.add(techcomp)
+splineSeries2.add(unitek)
 
 // Setup Y views manually (for some extra margins).
 axisY1.setInterval({ start: splineSeries1.getYMin() - 10, end: splineSeries1.getYMax() + 10, animate: true })
