@@ -3,7 +3,7 @@
  *  Also, styling of chart zooming rectangle & axes.
  */
 // Import LightningChartJS
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 // Extract required parts from LightningChartJS.
 const {
@@ -15,7 +15,7 @@ const {
     emptyLine,
     AxisTickStrategies,
     LegendBoxBuilders,
-    UIOrigins,
+    emptyFill,
     Themes,
 } = lcjs
 
@@ -55,7 +55,7 @@ const axisX = chart
     .setTickStrategy(AxisTickStrategies.DateTime)
     .setInterval({
         start: new Date(2018, 1, 5).getTime(),
-        end: new Date(2018, 1, 24).getTime()
+        end: new Date(2018, 1, 24).getTime(),
     })
 
 // Style the default Y Axis.
@@ -99,22 +99,28 @@ const axisY2 = chart
 
 // Create series with explicit axes.
 const splineSeries1 = chart
-    .addSplineSeries({
+    .addPointLineAreaSeries({
+        dataPattern: 'ProgressiveX',
         xAxis: axisX,
         yAxis: axisY1,
     })
     .setName('TechComp')
+    .setCurvePreprocessing({ type: 'spline' })
     .setStrokeStyle(seriesStrokeStyles[0])
     .setPointFillStyle(() => seriesStrokeStyles[0].getFillStyle())
+    .setAreaFillStyle(emptyFill)
 
 const splineSeries2 = chart
-    .addSplineSeries({
+    .addPointLineAreaSeries({
+        dataPattern: 'ProgressiveX',
         xAxis: axisX,
         yAxis: axisY2,
     })
     .setName('UniTek')
+    .setCurvePreprocessing({ type: 'spline' })
     .setStrokeStyle(seriesStrokeStyles[1])
     .setPointFillStyle(() => seriesStrokeStyles[1].getFillStyle())
+    .setAreaFillStyle(emptyFill)
 
 const techcomp = [
     { x: new Date(2018, 1, 5).getTime(), y: 352 },
@@ -166,14 +172,6 @@ const unitek = [
 splineSeries1.add(techcomp)
 splineSeries2.add(unitek)
 
-// Setup Y views manually (for some extra margins).
-axisY1.setInterval({ start: splineSeries1.getYMin() - 10, end: splineSeries1.getYMax() + 10, animate: true })
-axisY2.setInterval({ start: splineSeries2.getYMin() - 10, end: splineSeries2.getYMax() + 10, animate: true })
-
-// Enable AutoCursor auto-fill.
-chart.setAutoCursor((cursor) => {
-    cursor.setResultTableAutoTextStyle(true).setTickMarkerXAutoTextStyle(true).setTickMarkerYAutoTextStyle(true)
-})
 const legend = chart
     .addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
     // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
@@ -184,12 +182,3 @@ const legend = chart
 
 // Add Chart to LegendBox
 legend.add(chart)
-
-const parser = (builder, series, Xvalue, Yvalue) => {
-    return builder
-        .addRow(series.getName())
-        .addRow(axisX.formatValue(Xvalue))
-        .addRow('Units: ' + Math.floor(Yvalue))
-}
-splineSeries1.setCursorResultTableFormatter(parser)
-splineSeries2.setCursorResultTableFormatter(parser)
