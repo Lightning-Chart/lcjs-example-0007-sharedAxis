@@ -28,8 +28,6 @@ const axisYStrokeStyles = axisYStyles.map((fillStyle) => new SolidLine({ fillSty
 const axisYStylesHighlight = axisYStyles.map((fillStyle) => fillStyle.setA(100))
 const axisXStyleHighlight = new SolidFill({ color: colors[2].setA(100) })
 const seriesStrokeStyles = axisYStrokeStyles
-const fittingRectangleStrokeStyle = new SolidLine({ fillStyle: new SolidFill({ color: ColorRGBA(255, 255, 255, 100) }), thickness: 2 })
-const zoomingRectangleFillStyle = new SolidFill({ color: colors[2].setA(100) })
 
 // Create a XY Chart.
 const chart = lightningChart({
@@ -38,19 +36,12 @@ const chart = lightningChart({
     .ChartXY({
         theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     })
-    .setPadding({
-        right: 50,
-    })
     .setTitle('Unit production comparison')
-    // Style chart zooming rectangle.
-    .setFittingRectangleStrokeStyle(fittingRectangleStrokeStyle)
-    .setZoomingRectangleFillStyle(zoomingRectangleFillStyle)
 
 // Cache reference to default axes and style them.
 const axisX = chart
     .getDefaultAxisX()
     .setOverlayStyle(axisXStyleHighlight)
-    .setNibOverlayStyle(axisXStyleHighlight)
     // Set the X Axis to use DateTime TickStrategy and set the interval
     .setTickStrategy(AxisTickStrategies.DateTime)
     .setInterval({
@@ -63,7 +54,6 @@ const axisY1 = chart
     .getDefaultAxisY()
     .setStrokeStyle(axisYStrokeStyles[0])
     .setOverlayStyle(axisYStylesHighlight[0])
-    .setNibOverlayStyle(axisYStylesHighlight[0])
     // Modify the TickStrategy to remove gridLines from this Y Axis.
     .setTickStrategy(
         // Use Numeric TickStrategy as base.
@@ -83,7 +73,6 @@ const axisY2 = chart
     .setTitle('No of units produced')
     .setStrokeStyle(axisYStrokeStyles[1])
     .setOverlayStyle(axisYStylesHighlight[1])
-    .setNibOverlayStyle(axisYStylesHighlight[1])
     // Modify the TickStrategy to remove gridLines from this Y Axis.
     .setTickStrategy(
         // Use Numeric TickStrategy as base.
