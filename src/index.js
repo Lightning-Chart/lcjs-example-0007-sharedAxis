@@ -6,18 +6,7 @@
 const lcjs = require('@lightningchart/lcjs')
 
 // Extract required parts from LightningChartJS.
-const {
-    lightningChart,
-    ColorPalettes,
-    ColorRGBA,
-    SolidFill,
-    SolidLine,
-    emptyLine,
-    AxisTickStrategies,
-    LegendBoxBuilders,
-    emptyFill,
-    Themes,
-} = lcjs
+const { lightningChart, ColorPalettes, ColorRGBA, SolidFill, SolidLine, emptyLine, AxisTickStrategies, emptyFill, Themes } = lcjs
 
 // ----- Cache used styles -----
 const palette = ColorPalettes.arction(10)
@@ -88,25 +77,21 @@ const axisY2 = chart
 
 // Create series with explicit axes.
 const splineSeries1 = chart
-    .addPointLineAreaSeries({
-        dataPattern: 'ProgressiveX',
+    .addSplineSeries({
         xAxis: axisX,
         yAxis: axisY1,
     })
     .setName('TechComp')
-    .setCurvePreprocessing({ type: 'spline' })
     .setStrokeStyle(seriesStrokeStyles[0])
     .setPointFillStyle(() => seriesStrokeStyles[0].getFillStyle())
     .setAreaFillStyle(emptyFill)
 
 const splineSeries2 = chart
-    .addPointLineAreaSeries({
-        dataPattern: 'ProgressiveX',
+    .addSplineSeries({
         xAxis: axisX,
         yAxis: axisY2,
     })
     .setName('UniTek')
-    .setCurvePreprocessing({ type: 'spline' })
     .setStrokeStyle(seriesStrokeStyles[1])
     .setPointFillStyle(() => seriesStrokeStyles[1].getFillStyle())
     .setAreaFillStyle(emptyFill)
@@ -158,16 +143,5 @@ const unitek = [
 ]
 
 // Add data to series
-splineSeries1.add(techcomp)
-splineSeries2.add(unitek)
-
-const legend = chart
-    .addLegendBox(LegendBoxBuilders.HorizontalLegendBox)
-    // Dispose example UI elements automatically if they take too much space. This is to avoid bad UI on mobile / etc. devices.
-    .setAutoDispose({
-        type: 'max-width',
-        maxWidth: 0.8,
-    })
-
-// Add Chart to LegendBox
-legend.add(chart)
+splineSeries1.appendJSON(techcomp)
+splineSeries2.appendJSON(unitek)
