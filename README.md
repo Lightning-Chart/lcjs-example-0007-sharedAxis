@@ -1,6 +1,6 @@
-# Shared Axis
+# Shared Axis Series App
 
-![Shared Axis](sharedAxis-darkGold.png)
+![Shared Axis Series App](sharedAxis-darkGold.png)
 
 This demo application belongs to the set of examples for LightningChart JS, data visualization library for JavaScript.
 
